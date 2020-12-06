@@ -8,12 +8,12 @@ import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 
 
-function Customerlist () {
-    const [customers, setCustomers] = useState([]);
+function Trainigslist () {
+    const [trainings, setTrainings] = useState([]);
     const [open, setOpen] = useState(false);
 
     useEffect(() => {
-        getCustomers();
+        getTrainings();
     }, [])
 
     const handleOpen = () => {
@@ -24,37 +24,39 @@ function Customerlist () {
         setOpen(false);
     }
 
-    const getCustomers = () => {
-        fetch('https://customerrest.herokuapp.com/api/customers')
+    const getTrainings = () => {
+        fetch('https://customerrest.herokuapp.com/api/trainings')
         .then(response => response.json())
-        .then(data => setCustomers(data.content))
+        .then(data => setTrainings(data.content))
         .catch(err => console.error(err))
     }
 
-    const deleteCustomer = (params) => {
+    const deleteTraining = (params) => {
         if (window.confirm("Are your sure?")) {
         fetch(params.value, {
             method: 'DELETE'
         })
-        .then(_ => getCustomers())
+        .then(_ => getTrainings())
         .then(_ => handleOpen())
         console.log(params.value);
         }
     }
 
+    
+
     const columns = [
-        {headerName: 'First name',field: 'firstname', sortable: true, filter: true},
-        {headerName: 'Last name',field: 'lastname', sortable: true, filter: true},
-        {headerName: 'Street address',field: 'streetaddress', sortable: true, filter: true},
-        {field: 'city', sortable: true, filter: true},
-        {field: 'email', sortable: true, filter: true},
-        {field: 'phone', sortable: true, filter: true},
+        //{headerName: 'First name',field: 'firstname', sortable: true, filter: true},
+        //{headerName: 'Last name',field: 'lastname', sortable: true, filter: true},
+        //{headerName: 'Street address',field: 'streetaddress', sortable: true, filter: true},
+        {field: 'date', sortable: true, filter: true},
+        {field: 'duration', sortable: true, filter: true},
+        {field: 'activity', sortable: true, filter: true},
         {
             headerName: '',
             field: '_links.self.href',
             width: 90,
             cellRendererFramework: params => 
-            <IconButton color="secondary" onClick={() => deleteCustomer(params)}>
+            <IconButton color="secondary" onClick={() => deleteTraining(params)}>
                 <DeleteIcon fontSize="small"/>
             </IconButton>
         }
@@ -65,7 +67,7 @@ function Customerlist () {
         <div className="ag-theme-material" style={{ height: 600, width: '90%', margin: 'auto' }}>
             <h1>Customer list</h1>
         <AgGridReact
-            rowData={customers}
+            rowData={trainings}
             columnDefs={columns}
             pagination="true"
             paginationPageSize="10"
@@ -77,12 +79,12 @@ function Customerlist () {
             open={open}
             onClose={handleClose}
             autoHideDuration={2020}
-            message="Customer deleted succesfully"
+            message="Training deleted succesfully"
 
         />
     </div>
     );
 }
 
-export default Customerlist;
+export default Trainigslist;
 

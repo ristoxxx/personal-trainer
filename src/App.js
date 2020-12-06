@@ -1,11 +1,12 @@
 import './App.css';
-import Customerlist from './components/Customerlist'
+import Customerlist from './components/Customerlist';
+import Traininglist from './components/Trainigslist';
 
 function App() {
   return (
     <div className="App">
       <Customerlist />
-      <h1>And there was light!</h1>
+      <Traininglist />
     </div>
   );
 }
