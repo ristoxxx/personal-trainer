@@ -1,9 +1,11 @@
 import './App.css';
+import Customerlist from './components/Customerlist'
 
 function App() {
   return (
     <div className="App">
-      <h1>And there was a light!</h1>
+      <Customerlist />
+      <h1>And there was light!</h1>
     </div>
   );
 }
