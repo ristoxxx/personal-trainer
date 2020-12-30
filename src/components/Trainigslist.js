@@ -7,7 +7,7 @@ import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 
-
+//moicca
 function Trainigslist () {
     const [trainings, setTrainings] = useState([]);
     const [open, setOpen] = useState(false);
