@@ -9,6 +9,7 @@ import DeleteIcon from '@material-ui/icons/Delete';
 
 import AddCustomer from './AddCustomer';
 import EditCustomer from './EditCustomer';
+import AddTraining from './AddTraining';
 
 
 function Customerlist () {
@@ -57,6 +58,18 @@ function Customerlist () {
         .catch(err => console.error(err)) 
     }
 
+    const addTraining = (newTraining) => {
+        fetch('https://customerrest.herokuapp.com/api/trainings', {
+            method: 'POST',
+            headers: {
+                'Content-type' : 'application/json'
+            },
+            body: JSON.stringify(newTraining)
+        })
+        .then(response => getCustomers())
+        .catch(err => console.error(err)) 
+    }
+
     const updateCustomer = (link, customer) => {
         fetch(link, {
           method: 'PUT',
@@ -70,23 +83,30 @@ function Customerlist () {
     }
 
     const columns = [
-        {headerName: 'First name',field: 'firstname', sortable: true, filter: true},
-        {headerName: 'Last name',field: 'lastname', sortable: true, filter: true},
-        {headerName: 'Street address',field: 'streetaddress', sortable: true, filter: true},
-        {field: 'city', sortable: true, filter: true},
-        {field: 'email', sortable: true, filter: true},
-        {field: 'phone', sortable: true, filter: true},
+        {headerName: 'First name',field: 'firstname', width: 160, sortable: true, filter: true},
+        {headerName: 'Last name',field: 'lastname', width: 160, sortable: true, filter: true},
+        {headerName: 'Street address',field: 'streetaddress', width: 160, sortable: true, filter: true},
+        {field: 'city', width: 160, sortable: true, filter: true},
+        {field: 'email', width: 160, sortable: true, filter: true},
+        {field: 'phone', width: 160, sortable: true, filter: true},
         {
             headerName: '',
             field: 'links',
-            width: 70,
+            width: 100,
             cellRendererFramework: params => <EditCustomer updateCustomer={updateCustomer} params={params} />
             
         },
         {
             headerName: '',
             field: 'links',
-            width: 90,
+            width: 180,
+            cellRendererFramework: params => <AddTraining addTraining={addTraining} params={params} />
+            
+        },
+        {
+            headerName: '',
+            field: 'links',
+            width: 70,
             cellRendererFramework: params => 
             <IconButton color="secondary" onClick={() => deleteCustomer(params)}>
                 <DeleteIcon fontSize="small"/>

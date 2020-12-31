@@ -34,12 +34,12 @@ function Trainigslist () {
 
     const deleteTraining = (params) => {
         if (window.confirm("Are your sure?")) {
-        fetch(params.value, {
+        fetch(params.value[0].href, {
             method: 'DELETE'
         })
         .then(_ => getTrainings())
         .then(_ => handleOpen())
-        console.log(params.value);
+        console.log(params.value[0].href);
         }
     }
 
@@ -51,7 +51,7 @@ function Trainigslist () {
         {field: 'activity', sortable: true, filter: true},
         {
             headerName: '',
-            field: '_links.self.href',
+            field: 'links',
             width: 90,
             cellRendererFramework: params => 
             <IconButton color="secondary" onClick={() => deleteTraining(params)}>

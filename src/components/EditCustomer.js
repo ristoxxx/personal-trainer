@@ -5,6 +5,7 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import EditIcon from '@material-ui/icons/Edit';
 
 
 function EditCustomer(props) {
@@ -38,8 +39,8 @@ function EditCustomer(props) {
 
     return(
         <div>
-            <Button style={{margin: 10}}  variant="outlined" color="primary" onClick={handleClickOpen}>
-        Edit Customer
+            <Button style={{margin: 10}} variant="outlined" color="primary" onClick={handleClickOpen}>
+                <EditIcon fontSize="small"/>
       </Button>
       <Dialog open={open} onClose={handleClose}>
         <DialogTitle >Edit Customer</DialogTitle>
