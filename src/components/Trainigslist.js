@@ -65,7 +65,7 @@ function Trainigslist () {
     return (
     <div>
         <div className="ag-theme-material" style={{ height: 600, width: '90%', margin: 'auto' }}>
-            <h1>Customer list</h1>
+            <h1>Trainings list</h1>
         <AgGridReact
             rowData={trainings}
             columnDefs={columns}
