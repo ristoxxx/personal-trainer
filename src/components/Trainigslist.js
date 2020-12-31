@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { AgGridReact } from 'ag-grid-react';
+//import moment from 'moment';
 
 import 'ag-grid-community/dist/styles/ag-grid.css';
 import 'ag-grid-community/dist/styles/ag-theme-material.css';
@@ -7,7 +8,6 @@ import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 
-//moicca
 function Trainigslist () {
     const [trainings, setTrainings] = useState([]);
     const [open, setOpen] = useState(false);
@@ -28,6 +28,7 @@ function Trainigslist () {
         fetch('https://customerrest.herokuapp.com/api/trainings')
         .then(response => response.json())
         .then(data => setTrainings(data.content))
+        //.then(trainings => setTrainings({...trainings, date: moment(trainings.date).format('MM-DD-YYYY')}))
         .catch(err => console.error(err))
     }
 
@@ -45,9 +46,6 @@ function Trainigslist () {
     
 
     const columns = [
-        //{headerName: 'First name',field: 'firstname', sortable: true, filter: true},
-        //{headerName: 'Last name',field: 'lastname', sortable: true, filter: true},
-        //{headerName: 'Street address',field: 'streetaddress', sortable: true, filter: true},
         {field: 'date', sortable: true, filter: true},
         {field: 'duration', sortable: true, filter: true},
         {field: 'activity', sortable: true, filter: true},
