@@ -7,6 +7,9 @@ import Snackbar from '@material-ui/core/Snackbar';
 import IconButton from '@material-ui/core/IconButton';
 import DeleteIcon from '@material-ui/icons/Delete';
 
+import AddCustomer from './AddCustomer';
+import EditCustomer from './EditCustomer';
+
 
 function Customerlist () {
     const [customers, setCustomers] = useState([]);
@@ -33,13 +36,37 @@ function Customerlist () {
 
     const deleteCustomer = (params) => {
         if (window.confirm("Are your sure?")) {
-        fetch(params.value, {
+        fetch(params.value[0].href, {
             method: 'DELETE'
         })
         .then(_ => getCustomers())
         .then(_ => handleOpen())
-        console.log(params.value);
+        console.log(params.value[0].href);
         }
+    }
+
+    const addCustomer = (newCustomer) => {
+        fetch('https://customerrest.herokuapp.com/api/customers', {
+            method: 'POST',
+            headers: {
+                'Content-type' : 'application/json'
+            },
+            body: JSON.stringify(newCustomer)
+        })
+        .then(response => getCustomers())
+        .catch(err => console.error(err)) 
+    }
+
+    const updateCustomer = (link, customer) => {
+        fetch(link, {
+          method: 'PUT',
+          headers: {
+              'Content-type' : 'application/json'
+          },
+          body: JSON.stringify(customer)  
+        })
+        .then(response => getCustomers())
+        .catch(err => console.error(err))
     }
 
     const columns = [
@@ -51,7 +78,14 @@ function Customerlist () {
         {field: 'phone', sortable: true, filter: true},
         {
             headerName: '',
-            field: '_links.self.href',
+            field: 'links',
+            width: 70,
+            cellRendererFramework: params => <EditCustomer updateCustomer={updateCustomer} params={params} />
+            
+        },
+        {
+            headerName: '',
+            field: 'links',
             width: 90,
             cellRendererFramework: params => 
             <IconButton color="secondary" onClick={() => deleteCustomer(params)}>
@@ -64,6 +98,7 @@ function Customerlist () {
     <div>
         <div className="ag-theme-material" style={{ height: 600, width: '90%', margin: 'auto' }}>
             <h1>Customer list</h1>
+        <AddCustomer addCustomer={addCustomer}/>
         <AgGridReact
             rowData={customers}
             columnDefs={columns}
