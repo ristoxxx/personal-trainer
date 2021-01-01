@@ -9,6 +9,7 @@ import  {BrowserRouter as Router,
 //import Home from './Home';
 import Customerlist from './Customerlist';
 import Trainingslist from './Trainigslist';
+import BCalendar from './Calendar';
 
 
 function TabApp() {
@@ -26,10 +27,12 @@ function TabApp() {
                 <Tabs value={value} onChange={handleChange}>
                     <Tab value="one"label="Trainings list"/>
                     <Tab value="two"label="Customer list"/> 
+                    <Tab value="three"label="Calendar"/> 
                 </ Tabs>
             </ AppBar>
             {value === 'one' && <div><Route exact path = "/"component = {Trainingslist}/></div>}
             {value === 'two' && <div><Route exact path = "/"component = {Customerlist}/></div>}
+            {value === 'three' && <div><Route exact path = "/"component = {BCalendar}/></div>}
             
             </Router>
         </div>
